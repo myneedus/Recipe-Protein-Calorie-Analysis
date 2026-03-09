@@ -1,2 +1,2 @@
-# Recipe-Protein-Calorie-Analysis
-Project for DSC 80 at UCSD 
+# Investigation of Protein to Calorie Ratio in Recipes 
+Author: Saahithi Myneedu
