@@ -44,6 +44,8 @@ The second dataset, `interactions`, contains 731927 rows. Each row is a unique r
 In order to effectively find this relationship for my guiding question, I chose to especially focus on the following columns: 'nutrition' and recipe 'tags' to see the impact of these variables across various recipes. Later on, to create a prediction model, I focus on columns: 'nutrition', and 'reviews' more. 
 
 ## Data Cleaning and Exploratory Data Analysis
+Describe, in detail, the data cleaning steps you took and how they affected your analyses. The steps should be explained in reference to the data generating process. Show the head of your cleaned DataFrame (see Part 2: Report for instructions).
+
 ### Univariate Analysis 
 <iframe src="assets/Calories per Recipe.html" width="800" height="600" frameborder="0"
 ></iframe> 
@@ -69,9 +71,20 @@ vegetable   0.12   0.30
 
 [9 rows x 2 columns]
 ## Assessment of Missingness
+### MNAR Analysis
+State whether you believe there is a column in your dataset that is MNAR. Explain your reasoning and any additional data you might want to obtain that could explain the missingness (thereby making it MAR). Make sure to explicitly use the term “MNAR.”
+### Missingness Dependency
+Present and interpret the results of your missingness permutation tests with respect to your data and question. Embed a plotly plot related to your missingness exploration. Ideas for this plot include: • The distribution of column Y when column X is missing and the distribution of column Y when column X is not missing, as was done in Lecture 8. • The empirical distribution of the test statistic used in one of your permutation tests, along with the observed statistic.
 ## Hypothesis Testing
+Clearly state your null and alternative hypotheses, your choice of test statistic and significance level, the resulting p-value, and your conclusion. Justify why these choices are good choices for answering the question you are trying to answer.
 ## Framing a Prediction Problem
+Clearly state your prediction problem and type (classification or regression). If you are building a classifier, make sure to state whether you are performing binary classification or multiclass classification. Report the response variable (i.e. the variable you are predicting) and why you chose it, the metric you are using to evaluate your model and why you chose it over other suitable metrics (e.g. accuracy vs. F1-score).
 ## Baseline Model
+Describe your model and state the features incorporated in your model, specifying whether each is quantitative, ordinal, or nominal. Describe any encodings performed. Report the performance of your model and whether or not you believe your current model is “good” and why. : Both now and in Step 7: Final Model, make sure to evaluate your model not only on the training data, but on the model’s ability to generalize to unseen data!
 ## Final Model
+State the features you added and why they are good for the data and prediction task. Note that you can’t simply state “these features improved my accuracy”, since you’d need to choose these features and fit a model before noticing that – instead, talk about why you believe these features improved your model’s performance from the perspective of the data generating process.
+
+Describe the modeling algorithm you chose, the hyperparameters that ended up performing the best, and the methods you used to select your modeling algorithm and hyperparameters. Describe how your final model’s performance is an improvement over your baseline model’s performance.
 ## Fairness Analysis
+Clearly state your choice of Group X and Group Y, your evaluation metric, your null and alternative hypotheses, your choice of test statistic and significance level, the resulting p-value, and your conclusion.
 
