@@ -77,7 +77,7 @@ Although both categories include a number of **outliers**, the non-meat category
 | soup       |   0.200785  |   0.30888  |
 | vegetable  |   0.123033  |   0.300254 |
 
-This is a pivot table showing the average protein density across various categories, further split by whether the recipe has meat. Where meat is true, it consistently shows higher protein content across all the categories. Seafood is the next category, following meat, that has the highest protein density.
+This is a pivot table showing the average protein density across various categories, further split by whether the recipe has meat. When meat is true, it consistently shows higher protein content across all categories. Seafood is the next category, following meat, that has the highest protein density.
 
 ## Assessment of Missingness
 ### MNAR Analysis
