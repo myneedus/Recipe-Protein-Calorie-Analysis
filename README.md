@@ -83,6 +83,21 @@ This is a pivot table showing the average protein density across various categor
 ### MNAR Analysis
 State whether you believe there is a column in your dataset that is MNAR. Explain your reasoning and any additional data you might want to obtain that could explain the missingness (thereby making it MAR). Make sure to explicitly use the term “MNAR.”
 ### Missingness Dependency
+### Average Rating Column Depends on Calories Column
+<iframe
+  src="assets/P-Value for Calories.html"
+  width="800"
+  height="600"
+  frameborder="0"
+></iframe>
+
+### Average Rating Column Does Not Depend on Sodium Column
+<iframe
+  src="assets/P-Value for Sodium.html"
+  width="800"
+  height="600"
+  frameborder="0"
+></iframe>
 Present and interpret the results of your missingness permutation tests with respect to your data and question. Embed a plotly plot related to your missingness exploration. Ideas for this plot include: • The distribution of column Y when column X is missing and the distribution of column Y when column X is not missing, as was done in Lecture 8. • The empirical distribution of the test statistic used in one of your permutation tests, along with the observed statistic.
 ## Hypothesis Testing
 Clearly state your null and alternative hypotheses, your choice of test statistic and significance level, the resulting p-value, and your conclusion. Justify why these choices are good choices for answering the question you are trying to answer.
