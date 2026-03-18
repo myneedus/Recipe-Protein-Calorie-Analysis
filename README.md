@@ -56,7 +56,18 @@ This is a plot of the distribution of calories between 0 and 2000 (to avoid extr
 The **median** of the meat category is higher than the non-meat category, indicating meat has a more efficient protein-to-calorie ratio.
 The meat-based category appears to be more **spread** out, with a taller box likely because of the multiple protein contents various sorts of meats provide. 
 Although both categories include a number of **outliers**, the non-meat category has a very dense set of outliers, suggesting there are some non-meat recipes providing extremely protein-dense options. 
+### Grouping and Aggregates 
+is_meat    False  True 
+category               
+breakfast   0.13    NaN
+dessert     0.06   0.14
+meat         NaN   0.27
+...          ...    ...
+seafood     0.29   0.32
+soup        0.20   0.31
+vegetable   0.12   0.30
 
+[9 rows x 2 columns]
 ## Assessment of Missingness
 ## Hypothesis Testing
 ## Framing a Prediction Problem
