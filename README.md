@@ -45,13 +45,13 @@ In order to effectively find this relationship for my guiding question, I chose 
 
 ## Data Cleaning and Exploratory Data Analysis
 **Describe, in detail, the data cleaning steps you took and how they affected your analyses. The steps should be explained in reference to the data generating process.** 
-| name                                 | category   |   calories (#) |   protein_to_cal_ratio | is_meat   |   rating |
-|:-------------------------------------|:-----------|---------------:|-----------------------:|:----------|---------:|
-| 1 brownies in the world    best ever | dessert    |          138.4 |              0.0433526 | False     |        4 |
-| 1 in canada chocolate chip cookies   | other      |          595.1 |              0.0436901 | False     |        5 |
-| 412 broccoli casserole               | vegetable  |          194.8 |              0.225873  | True      |        5 |
-| millionaire pound cake               | dessert    |          878.3 |              0.0455425 | False     |        5 |
-| 2000 meatloaf                        | meat       |          267   |              0.217228  | True      |        5 |
+| name | category | calories (#) | protein_to_cal_ratio | is_meat | rating |
+|:---|:---|---:|---:|:---|---:|
+| 1 brownies in the world best ever | dessert | 138.4 | 0.0433526 | False | 4 |
+| 1 in canada chocolate chip cookies | other | 595.1 | 0.0436901 | False | 5 |
+| 412 broccoli casserole | vegetable | 194.8 | 0.225873 | True | 5 |
+| millionaire pound cake | dessert | 878.3 | 0.0455425 | False | 5 |
+| 2000 meatloaf | meat | 267 | 0.217228 | True | 5 |
 ### Univariate Analysis 
 <iframe src="assets/Calories per Recipe.html" width="800" height="600" frameborder="0"
 ></iframe> 
@@ -76,6 +76,7 @@ Although both categories include a number of **outliers**, the non-meat category
 | seafood | 0.289317 | 0.320133 |
 | soup | 0.200785 | 0.30888 |
 | vegetable | 0.123033 | 0.300254 |
+
 This is a pivot table showing the average protein density across various categories, further split by whether the recipe has meat. When meat is true, it consistently shows higher protein content across all categories. Seafood is the next category, following meat, that has the highest protein density.
 
 ## Assessment of Missingness
