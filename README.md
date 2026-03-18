@@ -52,6 +52,7 @@ This is a plot of the distribution of calories between 0 and 2000 (to avoid extr
 ### Bivariate Analysis
 <iframe src="assets/Meat vs. Non-Meat.html" width="800" height="600" frameborder="0"
 ></iframe> 
+
 The **median** of the meat category is higher than the non-meat category, indicating meat has a more efficient protein-to-calorie ratio.
 The meat-based category appears to be more **spread** out, with a taller box likely because of the multiple protein contents various sorts of meats provide. 
 Although both categories include a number of **outliers**, the non-meat category has a very dense set of outliers, suggesting there are some non-meat recipes providing extremely protein-dense options. 
