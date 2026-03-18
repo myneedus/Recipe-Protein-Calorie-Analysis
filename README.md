@@ -59,17 +59,18 @@ The **median** of the meat category is higher than the non-meat category, indica
 The meat-based category appears to be more **spread** out, with a taller box likely because of the multiple protein contents various sorts of meats provide. 
 Although both categories include a number of **outliers**, the non-meat category has a very dense set of outliers, suggesting there are some non-meat recipes providing extremely protein-dense options. 
 ### Grouping and Aggregates 
-is_meat    False  True 
-category               
-breakfast   0.13    NaN
-dessert     0.06   0.14
-meat         NaN   0.27
-...          ...    ...
-seafood     0.29   0.32
-soup        0.20   0.31
-vegetable   0.12   0.30
-
-[9 rows x 2 columns]
+| category   |       False |       True |
+|:-----------|------------:|-----------:|
+| breakfast  |   0.134938  | nan        |
+| dessert    |   0.0577054 |   0.140059 |
+| meat       | nan         |   0.266056 |
+| other      |   0.119007  |   0.285941 |
+| pasta      |   0.143259  | nan        |
+| salad      |   0.0951108 | nan        |
+| seafood    |   0.289317  |   0.320133 |
+| soup       |   0.200785  |   0.30888  |
+| vegetable  |   0.123033  |   0.300254 |
+This is a pivot table showing the average protein density across various categories, further split by whether the recipe has meat. Where meat is true, it consistently shows higher protein content across all the categories. Seafood is the next category, following meat, that has the highest protein density.
 ## Assessment of Missingness
 ### MNAR Analysis
 State whether you believe there is a column in your dataset that is MNAR. Explain your reasoning and any additional data you might want to obtain that could explain the missingness (thereby making it MAR). Make sure to explicitly use the term “MNAR.”
