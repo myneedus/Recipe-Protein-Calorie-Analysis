@@ -45,7 +45,7 @@ In order to effectively find this relationship for my guiding question, I chose 
 
 ## Data Cleaning and Exploratory Data Analysis
 ### Univariate Analysis 
-<iframe src="assets/Calories per Recipe.html" width="800" height="300" frameborder="0"
+<iframe src="assets/Calories per Recipe.html" width="800" height="600" frameborder="0"
 ></iframe> 
 This is a plot of the distribution of calories between 0 and 2000 (to avoid extreme outliers). The majority of the recipes within the common range of 0-2000 calories primarily exist in the 0-500 calories range, which is important to note, as even the small amount of protein in recipes in this range can result in a high protein-to-calorie ratio. 
 ### Bivariate Analysis
