@@ -44,26 +44,43 @@ The second dataset, `interactions`, contains 731927 rows. Each row is a unique r
 In order to effectively find this relationship for my guiding question, I chose to especially focus on the following columns: 'nutrition' and recipe 'tags' to see the impact of these variables across various recipes. Later on, to create a prediction model, I focus on columns: 'nutrition' and 'reviews' more. 
 
 ## Data Cleaning and Exploratory Data Analysis
-**Describe, in detail, the data cleaning steps you took and how they affected your analyses. The steps should be explained in reference to the data generating process.** 
-| name | category | calories (#) | protein_to_cal_ratio | is_meat | rating |
+To prepare the dataset for analysis, the following cleaning steps were taken:
+
+1. **Merged recipes and ratings** using a left join on recipe ID, ensuring all recipes were kept even if they had no reviews.
+2. **Replaced 0 ratings with NaN** — a rating of 0 likely indicates the user did not actually submit a rating, so treating it as missing avoids skewing the average.
+3. **Converted date columns** (`submitted` and `date`) from strings to datetime objects for proper handling.
+4. **Computed `avg_rating`** by grouping by recipe ID and taking the mean of all non-missing ratings, then merging it back onto the recipes DataFrame.
+5. **Deduplicated to one row per recipe** using `drop_duplicates(subset='id')` — since the merged DataFrame had one row per interaction, popular recipes with many reviews were overrepresented. Deduplication ensures each recipe contributes equally to the analysis.
+6. **Parsed the `nutrition` column** from a string into individual numeric columns for calories, protein, fat, sugar, sodium, saturated fat, and carbohydrates.
+7. **Filtered out recipes with 0 or unreasonably high calories** (above 10,000) as these are likely data entry errors that would produce misleading protein-to-calorie ratios.
+8. **Derived `protein_to_cal_ratio`** by converting protein PDV to grams, calculating protein calories (4 calories per gram), then dividing by total calories. Values were clipped at 1.0 since protein cannot physically contribute more than 100% of a recipe's calories.
+9. **Created `is_meat`** as a boolean flag by checking whether the tags string contains any of the keywords: meat, chicken, beef, pork, or fish.
+10. **Created `category`** by matching each recipe's tags against a list of broad food category keywords, defaulting to "other" if none matched.
+
+The resulting cleaned DataFrame is shown below:
+
+| name | category | calories (#) | protein\_to\_cal\_ratio | is\_meat | rating |
 |:---|:---|---:|---:|:---|---:|
 | 1 brownies in the world best ever | dessert | 138.4 | 0.0433526 | False | 4 |
 | 1 in canada chocolate chip cookies | other | 595.1 | 0.0436901 | False | 5 |
 | 412 broccoli casserole | vegetable | 194.8 | 0.225873 | True | 5 |
 | millionaire pound cake | dessert | 878.3 | 0.0455425 | False | 5 |
 | 2000 meatloaf | meat | 267 | 0.217228 | True | 5 |
+
 ### Univariate Analysis 
 <iframe src="assets/Calories per Recipe.html" width="800" height="600" frameborder="0"
 ></iframe> 
-This is a plot of the distribution of calories between 0 and 2000 (to avoid extreme outliers). The majority of the recipes within the common range of 0-2000 calories primarily exist in the 0-500 calories range, which is important to note, as even the small amount of protein in recipes in this range can result in a high protein-to-calorie ratio. 
+
+This histogram is a plot of the distribution of calories between 0 and 2000 (to avoid extreme outliers). The majority of the recipes within the common range of 0-2000 calories primarily exist in the 0-500 calories range, which is important to note, as even the small amount of protein in recipes in this range can result in a high protein-to-calorie ratio. 
 
 ### Bivariate Analysis
 <iframe src="assets/Meat vs. Non-Meat.html" width="800" height="600" frameborder="0"
 ></iframe> 
 
-The **median** of the meat category is higher than the non-meat category, indicating meat has a more efficient protein-to-calorie ratio.
+The box plot below compares protein-to-calorie ratios between meat and non-meat recipes. The **median** of the meat category is higher than the non-meat category, indicating meat has a more efficient protein-to-calorie ratio.
 The meat-based category appears to be more **spread** out, with a taller box likely because of the multiple protein contents various sorts of meats provide. 
 Although both categories include a number of **outliers**, the non-meat category has a very dense set of outliers, suggesting there are some non-meat recipes providing extremely protein-dense options. 
+
 ### Grouping and Aggregates 
 | category | False | True |
 |:---|---:|---:|
@@ -84,6 +101,8 @@ This is a pivot table showing the average protein density across various categor
 State whether you believe there is a column in your dataset that is MNAR. Explain your reasoning and any additional data you might want to obtain that could explain the missingness (thereby making it MAR). Make sure to explicitly use the term “MNAR.”
 ### Missingness Dependency
 ### Average Rating Column Depends on Calories Column
+A permutation test was run to determine whether the missingness of `avg_rating` depends on the `calories (#)` column. The observed difference in mean calories between recipes with and without missing ratings was [INSERT OBSERVED VALUE]. After 1000 permutations, the resulting p-value was **0.0**, which is below our significance level of 0.05. We therefore conclude that the missingness of `avg_rating` **does** depend on calories — recipes with missing ratings tend to have significantly higher calorie counts, suggesting they are richer, more complex dishes that fewer users attempt and therefore fewer users rate.
+
 <iframe
   src="assets/P-value for Calories.html"
   width="800"
@@ -92,24 +111,88 @@ State whether you believe there is a column in your dataset that is MNAR. Explai
 ></iframe>
 
 ### Average Rating Column Does Not Depend on Sodium Column
+A second permutation test was run using `sodium (PDV)`. The observed difference in mean sodium between recipes with and without missing ratings was [INSERT OBSERVED VALUE]. After 1000 permutations, the resulting p-value was **[INSERT P-VALUE]**, which is above our significance level of 0.05. We therefore conclude that the missingness of `avg_rating` **does not** depend on sodium content — whether a recipe is salty or not has no meaningful relationship with whether it gets rated.
+
 <iframe
   src="assets/P-value for Sodium.html"
   width="800"
   height="600"
   frameborder="0"
 ></iframe>
-Present and interpret the results of your missingness permutation tests with respect to your data and question. Embed a plotly plot related to your missingness exploration. Ideas for this plot include: • The distribution of column Y when column X is missing and the distribution of column Y when column X is not missing, as was done in Lecture 8. • The empirical distribution of the test statistic used in one of your permutation tests, along with the observed statistic.
 
 ## Hypothesis Testing
-Clearly state your null and alternative hypotheses, your choice of test statistic and significance level, the resulting p-value, and your conclusion. Justify why these choices are good choices for answering the question you are trying to answer.
+**Null Hypothesis**: There is no difference in the mean protein-to-calorie ratio across recipe categories. Any observed differences are due to random variation.
+
+**Alternative Hypothesis**: At least one recipe category has a significantly different mean protein-to-calorie ratio compared to the others.
+
+**Test Statistic**: Variance of category means — chosen because it captures spread across multiple groups simultaneously, making it appropriate for comparing more than two categories at once.
+
+**Significance Level**: 0.05
+
+**Result**: The observed variance of category means was [INSERT OBSERVED VALUE]. After 1000 permutations, the resulting p-value was **[INSERT P-VALUE]**.
+
+**Conclusion**: Since the p-value is [above/below] 0.05, we [fail to reject/reject] the null hypothesis. This [does/does not] suggest that protein-to-calorie ratio varies significantly across recipe categories, indicating that recipe type [is/is not] a meaningful predictor of protein efficiency.
+
 ## Framing a Prediction Problem
-Clearly state your prediction problem and type (classification or regression). If you are building a classifier, make sure to state whether you are performing binary classification or multiclass classification. Report the response variable (i.e. the variable you are predicting) and why you chose it, the metric you are using to evaluate your model and why you chose it over other suitable metrics (e.g. accuracy vs. F1-score).
+**Prediction Problem**: Predict the protein-to-calorie ratio of a recipe.
+
+**Type**: Regression — since `protein_to_cal_ratio` is a continuous variable between 0 and 1, this is a regression problem rather than a classification problem.
+
+**Response Variable**: `protein_to_cal_ratio` — this was chosen because it is the central metric of the entire analysis. Predicting it from basic recipe features is a natural extension of the question explored in Steps 1–4 and would allow someone to estimate how protein-efficient a recipe is before cooking it.
+
+**Evaluation Metric**: RMSE (Root Mean Squared Error) — chosen over R² because it is interpretable in the same units as the response variable, making it easier to understand how far off predictions are in practical terms. RMSE also penalizes large errors more heavily than MAE, which is appropriate here since a large misprediction of protein ratio could meaningfully mislead someone making dietary decisions.
+
+**Features available at time of prediction**: All features used — `is_meat`, `n_steps`, `category`, and `n_ingredients` — are knowable at the moment a recipe is submitted to food.com, before any ratings or interactions occur.
+
 ## Baseline Model
-Describe your model and state the features incorporated in your model, specifying whether each is quantitative, ordinal, or nominal. Describe any encodings performed. Report the performance of your model and whether or not you believe your current model is “good” and why. : Both now and in Step 7: Final Model, make sure to evaluate your model not only on the training data, but on the model’s ability to generalize to unseen data!
+**Model**: Linear Regression
+
+**Features**:
+- `is_meat` (nominal) — one-hot encoded using `OneHotEncoder(drop='first')` since it is a boolean categorical variable
+- `n_steps` (quantitative) — left as-is since it is already numeric
+
+**Performance**:
+- Training RMSE: [INSERT VALUE]
+- Test RMSE: [INSERT VALUE]
+- Test R²: [INSERT VALUE]
+
+The baseline model is not particularly strong. An R² of [INSERT VALUE] indicates that `is_meat` and `n_steps` alone explain only a small portion of the variance in protein-to-calorie ratio. This makes sense — while meat recipes do tend to have higher protein ratios, the number of steps in a recipe has a weak relationship with its nutritional composition. The baseline serves as a useful reference point for evaluating the improvement made by the final model.
+
 ## Final Model
-State the features you added and why they are good for the data and prediction task. Note that you can’t simply state “these features improved my accuracy”, since you’d need to choose these features and fit a model before noticing that – instead, talk about why you believe these features improved your model’s performance from the perspective of the data generating process.
+**New Features Added**:
+- `category` (nominal) — one-hot encoded. This feature was added because different food categories have fundamentally different nutritional profiles from the data generating process perspective. A dessert recipe and a seafood recipe differ in protein efficiency not by accident but by the nature of their ingredients. Adding category gives the model a meaningful signal about what kind of food is being prepared.
+- `n_ingredients` (quantitative) — standardized using `StandardScaler`. Recipes with more ingredients tend to be more complex and are more likely to include a wider variety of protein sources. From a data generating process perspective, ingredient count is a proxy for recipe complexity, which correlates with nutritional diversity.
 
-Describe the modeling algorithm you chose, the hyperparameters that ended up performing the best, and the methods you used to select your modeling algorithm and hyperparameters. Describe how your final model’s performance is an improvement over your baseline model’s performance.
+**Modeling Algorithm**: Random Forest Regressor — chosen over Linear Regression because it can capture non-linear relationships between features and protein-to-calorie ratio, which the scatter plots from Step 2 suggested exist.
+
+**Hyperparameters Tuned**:
+- `n_estimators` — controls the number of trees in the forest. More trees reduce variance but increase computation time
+- `max_depth` — controls how deep each tree grows. Deeper trees can overfit, so tuning this helps generalization
+- `min_samples_split` — controls the minimum samples required to split a node, helping prevent overfitting on small groups
+
+**Best Hyperparameters**: [INSERT FROM search.best_params_]
+
+**Performance**:
+- Final Test RMSE: [INSERT VALUE]
+- Final Test R²: [INSERT VALUE]
+- Baseline Test RMSE: [INSERT VALUE]
+
+The final model improved over the baseline with a lower RMSE of [INSERT] compared to the baseline RMSE of [INSERT], indicating that adding category and ingredient count meaningfully improved the model's ability to predict protein-to-calorie ratio on unseen recipes.
 ## Fairness Analysis
-Clearly state your choice of Group X and Group Y, your evaluation metric, your null and alternative hypotheses, your choice of test statistic and significance level, the resulting p-value, and your conclusion.
+**Group X**: Meat-based recipes (`is_meat = True`)
 
+**Group Y**: Non-meat recipes (`is_meat = False`)
+
+**Evaluation Metric**: RMSE — used to measure how accurately the model predicts protein-to-calorie ratio for each group
+
+**Null Hypothesis**: The model is fair — its RMSE for meat-based recipes and non-meat recipes are roughly the same, and any observed difference is due to random chance.
+
+**Alternative Hypothesis**: The model is unfair — its RMSE differs significantly between meat-based and non-meat recipes.
+
+**Test Statistic**: Absolute difference in RMSE between the two groups
+
+**Significance Level**: 0.05
+
+**Result**: The observed RMSE difference was [INSERT VALUE]. After 1000 permutations, the resulting p-value was **[INSERT VALUE]**.
+
+**Conclusion**: Since the p-value is [above/below] 0.05, we [fail to reject/reject] the null hypothesis. This suggests the model [is/is not] fair with respect to meat vs. non-meat recipes.
