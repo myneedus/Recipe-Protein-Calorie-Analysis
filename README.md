@@ -98,8 +98,8 @@ This is a pivot table showing the average protein density across various categor
 
 ## Assessment of Missingness
 ### MNAR Analysis
-State whether you believe there is a column in your dataset that is MNAR. Explain your reasoning and any additional data you might want to obtain that could explain the missingness (thereby making it MAR). Make sure to explicitly use the term “MNAR.”
-### Missingness Dependency
+I believe the `avg_rating` column in this dataset is **MNAR** (Missing Not At Random). Recipes that are difficult, highly niche, or unpopular may go unrated precisely because fewer people attempt them — meaning the missingness is related to the unobserved value itself. A recipe that would have received a low rating due to poor quality or inaccessibility is less likely to be made and reviewed at all. To confirm this and make the missingness MAR, additional data on recipe view counts or page traffic from food.com would help explain why certain recipes receive no engagement.
+
 ### Average Rating Column Depends on Calories Column
 A permutation test was run to determine whether the missingness of `avg_rating` depends on the `calories (#)` column. The observed difference in mean calories between recipes with and without missing ratings was [INSERT OBSERVED VALUE]. After 1000 permutations, the resulting p-value was **0.0**, which is below our significance level of 0.05. We therefore conclude that the missingness of `avg_rating` **does** depend on calories — recipes with missing ratings tend to have significantly higher calorie counts, suggesting they are richer, more complex dishes that fewer users attempt and therefore fewer users rate.
 
