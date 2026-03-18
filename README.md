@@ -50,7 +50,7 @@ In order to effectively find this relationship for my guiding question, I chose 
 This is a plot of the distribution of calories between 0 and 2000 (to avoid extreme outliers). The majority of the recipes within the common range of 0-2000 calories primarily exist in the 0-500 calories range, which is important to note, as even the small amount of protein in recipes in this range can result in a high protein-to-calorie ratio. 
 
 ### Bivariate Analysis
-<iframe src="assets/Meat vs. Non-Meat .html" width="800" height="600" frameborder="0"
+<iframe src="assets/Meat vs. Non-Meat.html" width="800" height="600" frameborder="0"
 ></iframe> 
 The **median** of the meat category is higher than the non-meat category, indicating meat has a more efficient protein-to-calorie ratio.
 The meat-based category appears to be more **spread** out, with a taller box likely because of the multiple protein contents various sorts of meats provide. 
