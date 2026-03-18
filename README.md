@@ -85,7 +85,7 @@ State whether you believe there is a column in your dataset that is MNAR. Explai
 ### Missingness Dependency
 ### Average Rating Column Depends on Calories Column
 <iframe
-  src="assets/P-Value for Calories.html"
+  src="assets/P-value for Calories.html"
   width="800"
   height="600"
   frameborder="0"
@@ -93,7 +93,7 @@ State whether you believe there is a column in your dataset that is MNAR. Explai
 
 ### Average Rating Column Does Not Depend on Sodium Column
 <iframe
-  src="assets/P-Value for Sodium.html"
+  src="assets/P-value for Sodium.html"
   width="800"
   height="600"
   frameborder="0"
