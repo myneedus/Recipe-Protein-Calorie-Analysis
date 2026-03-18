@@ -14,17 +14,35 @@ However, not all high-protein foods have the same efficiency. For example, a rec
 
 By answering this question, we can identify categories of food that provide the most optimal protein source relative to the amount of calories. The insights will be able to help individuals find options that are more nutritionally efficient. 
 
-In order to effectively find this relationship, I chose to focus on the following key variables: calories, protein content, and recipe tags to see the impact of these variables across various recipes. 
-The dataset contains **83,782 recipes** with the following relevant columns:
+The  dataset, `recipe`, contains 83782 rows, each representing a distinct recipe, with 10 columns recording the following information:
 
-| Column | Description |
-|--------|-------------|
-| `nutrition` | Contains calories, total fat, sugar, sodium, protein, saturated fat, and carbohydrates as percent daily values |
-| `protein (PDV)` | Protein content as a percentage of daily value, used to derive protein-to-calorie ratio |
-| `calories (#)` | Total calories per recipe, the denominator of our key metric |
-| `tags` | Food.com tags used to categorize recipes, used to derive `is_meat` and `category` |
-| `protein_to_cal_ratio` | Derived column representing how efficiently a recipe delivers protein per calorie |
-| `is_meat` | Boolean indicating whether a recipe is meat-based, derived from tags |
+| Column             | Description                                                                                                                                                                                       |
+| :----------------- | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `'name'`           | Recipe name                                                                                                                                                                                       |
+| `'id'`             | Recipe ID                                                                                                                                                                                         |
+| `'minutes'`        | Minutes to prepare recipe                                                                                                                                                                         |
+| `'contributor_id'` | User ID who submitted this recipe                                                                                                                                                                 |
+| `'submitted'`      | Date recipe was submitted                                                                                                                                                                         |
+| `'tags'`           | Food.com tags for recipe                                                                                                                                                                          |
+| `'nutrition'`      | Nutrition information in the form [calories (#), total fat (PDV), sugar (PDV), sodium (PDV), protein (PDV), saturated fat (PDV), carbohydrates (PDV)]; PDV stands for “percentage of daily value” |
+| `'n_steps'`        | Number of steps in recipe                                                                                                                                                                  |
+| `'steps'`          | Text for recipe steps, in order                                                                                                                                                                   |
+| `'description'`    | User-provided description                                                                                                                                                                         |
+| `'ingredients'`    | Text for recipe ingredients                                                                                                                                                                       |
+| `'n_ingredients'`  | Number of ingredients in recipe                                                                                                                                                                   |
+
+The second dataset, `interactions`, contains 731927 rows. Each row is a unique review from a user with columns describing:
+
+| Column        | Description         |
+| :------------ | :------------------ |
+| `'user_id'`   | User ID             |
+| `'recipe_id'` | Recipe ID           |
+| `'date'`      | Date of interaction |
+| `'rating'`    | Rating given        |
+| `'review'`    | Review text         |
+
+In order to effectively find this relationship for my guiding question, I chose to especially focus on the following columns: 'nutrition' and recipe 'tags' to see the impact of these variables across various recipes. Later on, to create a prediction model, I focus on columns: 'nutrition', and 'reviews' more. 
+
 ## Data Cleaning and Exploratory Data Analysis
 ## Assessment of Missingness
 ## Hypothesis Testing
