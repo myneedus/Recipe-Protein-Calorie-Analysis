@@ -44,6 +44,11 @@ The second dataset, `interactions`, contains 731927 rows. Each row is a unique r
 In order to effectively find this relationship for my guiding question, I chose to especially focus on the following columns: 'nutrition' and recipe 'tags' to see the impact of these variables across various recipes. Later on, to create a prediction model, I focus on columns: 'nutrition', and 'reviews' more. 
 
 ## Data Cleaning and Exploratory Data Analysis
+### Univariate Analysis 
+<img width="602" height="402" alt="image" src="https://github.com/user-attachments/assets/d827d306-33bf-4a78-a6f6-c220543327ac" />
+This is a plot of the distribution of calories between 0 and 2000 (to avoid extreme outliers). The majority of the recipes within the common range of 0-2000 calories primarily exist in the 0-500 calories range, which is important to note, as even the small amount of protein in recipes in this range can result in a high protein-to-calorie ratio. 
+### Bivariate Analysis
+
 ## Assessment of Missingness
 ## Hypothesis Testing
 ## Framing a Prediction Problem
