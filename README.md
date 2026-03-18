@@ -44,7 +44,7 @@ The second dataset, `interactions`, contains 731927 rows. Each row is a unique r
 In order to effectively find this relationship for my guiding question, I chose to especially focus on the following columns: 'nutrition' and recipe 'tags' to see the impact of these variables across various recipes. Later on, to create a prediction model, I focus on columns: 'nutrition' and 'reviews' more. 
 
 ## Data Cleaning and Exploratory Data Analysis
-Describe, in detail, the data cleaning steps you took and how they affected your analyses. The steps should be explained in reference to the data generating process. Show the head of your cleaned DataFrame (see Part 2: Report for instructions).
+**Describe, in detail, the data cleaning steps you took and how they affected your analyses. The steps should be explained in reference to the data generating process.** 
 | name                                 | category   |   calories (#) |   protein_to_cal_ratio | is_meat   |   rating |
 |:-------------------------------------|:-----------|---------------:|-----------------------:|:----------|---------:|
 | 1 brownies in the world    best ever | dessert    |          138.4 |              0.0433526 | False     |        4 |
