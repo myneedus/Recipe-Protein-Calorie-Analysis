@@ -82,17 +82,26 @@ The meat-based category appears to be more **spread** out, with a taller box lik
 Although both categories include a number of **outliers**, the non-meat category has a very dense set of outliers, suggesting there are some non-meat recipes providing extremely protein-dense options. 
 
 ### Grouping and Aggregates 
-| category   |     False |      True |
-|:-----------|----------:|----------:|
-| breakfast  | 0.133445  | 0.223286  |
-| dessert    | 0.0577084 | 0.0691999 |
-| meat       | 0.218476  | 0.279963  |
-| other      | 0.0983903 | 0.23379   |
-| pasta      | 0.131624  | 0.175402  |
-| salad      | 0.0836779 | 0.201255  |
-| seafood    | 0.322403  | 0.306626  |
-| soup       | 0.162794  | 0.221817  |
-| vegetable  | 0.12282   | 0.175153  |
+<table>
+  <thead>
+    <tr>
+      <th>Category</th>
+      <th>is_meat: False</th>
+      <th>is_meat: True</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr><td>breakfast</td><td>0.1349</td><td>nan</td></tr>
+    <tr><td>dessert</td><td>0.0577</td><td>0.1401</td></tr>
+    <tr><td>meat</td><td>nan</td><td>0.2661</td></tr>
+    <tr><td>other</td><td>0.1190</td><td>0.2859</td></tr>
+    <tr><td>pasta</td><td>0.1433</td><td>nan</td></tr>
+    <tr><td>salad</td><td>0.0951</td><td>nan</td></tr>
+    <tr><td>seafood</td><td>0.2893</td><td>0.3201</td></tr>
+    <tr><td>soup</td><td>0.2008</td><td>0.3089</td></tr>
+    <tr><td>vegetable</td><td>0.1230</td><td>0.3003</td></tr>
+  </tbody>
+</table>
 
 This is a pivot table showing the average protein density across various categories, further split by whether the recipe has meat. When meat is true, it consistently shows higher protein content across all categories. Seafood is the next category, following meat, that has the highest protein density.
 
