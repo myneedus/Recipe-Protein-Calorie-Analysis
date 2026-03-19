@@ -185,14 +185,14 @@ The final model improved over the baseline with a lower RMSE of 0.0989 compared 
 
 **Evaluation Metric**: RMSE — used to measure how accurately the model predicts protein-to-calorie ratio for each group
 
-**Null Hypothesis**: The model is fair — its RMSE for meat-based recipes and non-meat recipes are roughly the same, and any observed difference is due to random chance.
+**Null Hypothesis**: The model is fair in which the RMSE for meat-based recipes and non-meat recipes are roughly the same, and any observed difference is due to random chance.
 
-**Alternative Hypothesis**: The model is unfair — its RMSE differs significantly between meat-based and non-meat recipes.
+**Alternative Hypothesis**: The model is unfair in which the RMSE differs significantly between meat-based and non-meat recipes.
 
 **Test Statistic**: Absolute difference in RMSE between the two groups
 
 **Significance Level**: 0.05
 
-**Result**: The observed RMSE difference was [INSERT VALUE]. After 1000 permutations, the resulting p-value was **[INSERT VALUE]**.
+**Result**: The observed RMSE difference was 0.0493. After 1000 permutations, the resulting p-value was **0.0000**.
 
-**Conclusion**: Since the p-value is [above/below] 0.05, we [fail to reject/reject] the null hypothesis. This suggests the model [is/is not] fair with respect to meat vs. non-meat recipes.
+**Conclusion**: Since the p-value is below 0.05, we reject the null hypothesis. This suggests the model is not fair with respect to meat vs. non-meat recipes.
