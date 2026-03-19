@@ -131,7 +131,7 @@ In my second permutation test run on the  `sodium (PDV)` column. The observed di
 
 **Result**: The observed variance of category means was 0.007003991121994941. After 1000 permutations, the resulting p-value was **0.00**.
 
-**Conclusion**: Since the p-value is significantly below 0.05, I rejected the null hypothesis. This indeed does suggest that protein-to-calorie ratio varies significantly across recipe categories, indicating that recipe type is a meaningful predictor of protein efficiency.
+**Conclusion**: Since the p-value is significantly below 0.05, I rejected the null hypothesis. This could suggest that protein-to-calorie ratio varies significantly across recipe categories, indicating that recipe type could be a meaningful predictor of protein efficiency. Howvever its important to note, we can not determine this as the absolute truth as the hypothesis test was not intesive enough and no experiment was conducted to determine a cause effect relationship. 
 
 ## Framing a Prediction Problem
 **Prediction Problem**: Predict the protein-to-calorie ratio of a recipe.
@@ -195,4 +195,4 @@ The final model improved over the baseline with a lower RMSE of 0.0989 compared 
 
 **Result**: The observed RMSE difference was 0.0493. After 1000 permutations, the resulting p-value was **0.0000**.
 
-**Conclusion**: Since the p-value is below 0.05, we reject the null hypothesis. This suggests the model is not fair with respect to meat vs. non-meat recipes.
+**Conclusion**: Since the p-value is below 0.05, we reject the null hypothesis. This suggests the model is not fair with respect to meat vs. non-meat recipes. 
