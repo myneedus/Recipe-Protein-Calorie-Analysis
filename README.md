@@ -49,11 +49,11 @@ To prepare the dataset for analysis, the following cleaning steps were taken:
 1. **Merged recipes and ratings** using a left join on recipe ID. This ensured that all of the recipes were kept, even if they were missing reviews.
 2. **Replaced 0 ratings with NaN** — a rating of 0 likely indicates the user did not actually submit a rating, so instead of treating it as a 0 and risk skewing average ratings, I chose to treat it as missing.
 3. **Converted date columns** (`submitted` and `date`) from strings to datetime objects for general proper handling.
-4. **Computed `avg_rating`** by grouping by recipe ID and taking the mean of all non-missing ratings, then merging it back onto the recipes DataFrame.
+4. **Computed `avg_rating`** by grouping by recipe ID and taking the mean of all non-missing ratings, then merging it back onto the recipes DataFrame adn renamed the 'rating' column to accuratley distinguish.
 5. **Deduplicated to one row per recipe** using `drop_duplicates(subset='id')` since the merged DataFrame had one row per interaction, popular recipes with many reviews were overrepresented. Deduplication ensures each recipe contributes equally to the analysis.
 6. **Parsed the `nutrition` column** from a string into individual numeric columns for calories, protein, fat, sugar, sodium, saturated fat, and carbohydrates.
 7. **Filtered out recipes with 0 or unreasonably high calories** (above 10,000) as these are likely data entry errors that would produce misleading protein-to-calorie ratios.
-8. **Derived `protein_to_cal_ratio`** by converting protein PDV to grams, calculating protein calories (4 calories per gram), then dividing by total calories. Values were clipped at 1.0 because protein cannot physically contribute more than 100% of a recipe's calories.
+8. **Derived `protein_to_cal_ratio`** by converting protein PDV to grams using the 50g daily refrence by the FDA, calculating protein calories (4 calories per gram), then dividing by total calories. Values were clipped at 1.0 because protein cannot physically contribute more than 100% of a recipe's calories.
 9. **Created `is_meat`** as a boolean flag by checking whether the ingredients column contained any of the keywords: meat, chicken, beef, pork, or fish.
 10. **Created `category`** by matching each recipe's tags against a list of broad food category keywords, defaulting to "other" if none matched.
 
@@ -83,7 +83,7 @@ Although both categories include a number of **outliers**, the non-meat category
 
 ### Grouping and Aggregates 
 | Category | is_meat: False | is_meat: True |
-| --- | --- | --- |
+|:---|---:|---:|
 | breakfast | 0.1349 | nan |
 | dessert | 0.0577 | 0.1401 |
 | meat | nan | 0.2661 |
