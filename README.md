@@ -14,7 +14,7 @@ However, not all high-protein foods have the same efficiency. For example, a rec
 
 By answering this question, we can identify categories of food that provide the most optimal protein source relative to the amount of calories. The insights will be able to help individuals find options that are more nutritionally efficient. 
 
-The  dataset, `recipe`, contains 83782 rows, each representing a distinct recipe, with 10 columns recording the following information:
+The  dataset, `recipe`, contains **83,782** rows, each representing a distinct recipe, with 10 columns recording the following information:
 
 | Column             | Description                                                                                                                                                                                       |
 | :----------------- | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
@@ -31,7 +31,7 @@ The  dataset, `recipe`, contains 83782 rows, each representing a distinct recipe
 | `'ingredients'`    | Text for recipe ingredients                                                                                                                                                                       |
 | `'n_ingredients'`  | Number of ingredients in recipe                                                                                                                                                                   |
 
-The second dataset, `interactions`, contains 731927 rows. Each row is a unique review from a user with columns describing:
+The second dataset, `interactions`, contains **73,1927** rows. Each row is a unique review from a user with columns describing:
 
 | Column        | Description         |
 | :------------ | :------------------ |
