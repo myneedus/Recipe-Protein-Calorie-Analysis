@@ -46,15 +46,15 @@ In order to effectively find this relationship for my guiding question, I chose 
 ## Data Cleaning and Exploratory Data Analysis
 To prepare the dataset for analysis, the following cleaning steps were taken:
 
-1. **Merged recipes and ratings** using a left join on recipe ID, ensuring all recipes were kept even if they had no reviews.
-2. **Replaced 0 ratings with NaN** — a rating of 0 likely indicates the user did not actually submit a rating, so treating it as missing avoids skewing the average.
-3. **Converted date columns** (`submitted` and `date`) from strings to datetime objects for proper handling.
+1. **Merged recipes and ratings** using a left join on recipe ID. This ensured that all of the recipes were kept, even if they were missing reviews.
+2. **Replaced 0 ratings with NaN** — a rating of 0 likely indicates the user did not actually submit a rating, so instead of treating it as a 0 and risk skewing average ratings, I chose to treat it as missing.
+3. **Converted date columns** (`submitted` and `date`) from strings to datetime objects for general proper handling.
 4. **Computed `avg_rating`** by grouping by recipe ID and taking the mean of all non-missing ratings, then merging it back onto the recipes DataFrame.
-5. **Deduplicated to one row per recipe** using `drop_duplicates(subset='id')` — since the merged DataFrame had one row per interaction, popular recipes with many reviews were overrepresented. Deduplication ensures each recipe contributes equally to the analysis.
+5. **Deduplicated to one row per recipe** using `drop_duplicates(subset='id')` since the merged DataFrame had one row per interaction, popular recipes with many reviews were overrepresented. Deduplication ensures each recipe contributes equally to the analysis.
 6. **Parsed the `nutrition` column** from a string into individual numeric columns for calories, protein, fat, sugar, sodium, saturated fat, and carbohydrates.
 7. **Filtered out recipes with 0 or unreasonably high calories** (above 10,000) as these are likely data entry errors that would produce misleading protein-to-calorie ratios.
-8. **Derived `protein_to_cal_ratio`** by converting protein PDV to grams, calculating protein calories (4 calories per gram), then dividing by total calories. Values were clipped at 1.0 since protein cannot physically contribute more than 100% of a recipe's calories.
-9. **Created `is_meat`** as a boolean flag by checking whether the tags string contains any of the keywords: meat, chicken, beef, pork, or fish.
+8. **Derived `protein_to_cal_ratio`** by converting protein PDV to grams, calculating protein calories (4 calories per gram), then dividing by total calories. Values were clipped at 1.0 because protein cannot physically contribute more than 100% of a recipe's calories.
+9. **Created `is_meat`** as a boolean flag by checking whether the ingredients column contained any of the keywords: meat, chicken, beef, pork, or fish.
 10. **Created `category`** by matching each recipe's tags against a list of broad food category keywords, defaulting to "other" if none matched.
 
 The resulting cleaned DataFrame is shown below:
@@ -98,8 +98,7 @@ This is a pivot table showing the average protein density across various categor
 
 ## Assessment of Missingness
 ### MNAR Analysis
-I believe the `avg_rating` column in this dataset is **MNAR** (Missing Not At Random). Recipes that are difficult, highly niche, or unpopular may go unrated precisely because fewer people attempt them — meaning the missingness is related to the unobserved value itself. A recipe that would have received a low rating due to poor quality or inaccessibility is less likely to be made and reviewed at all. To confirm this and make the missingness MAR, additional data on recipe view counts or page traffic from food.com would help explain why certain recipes receive no engagement.
-
+I believe the `avg_rating` column in this dataset is **MNAR** (Missing Not At Random). This can be attributed to the fact that certain recipes can be difficult, highly niche, or unpopular. Recipes such as these are likely less frequented or even attempted by people. As a result, this can affect the missingness of the unobserved rating itself. In order to confirm and qualify as an MAR, however, more data would need to be collected, such as recipe views or page traffic, to explain why certain recipes receive less engagement.
 ### Average Rating Column Depends on Calories Column
 A permutation test was run to determine whether the missingness of `avg_rating` depends on the `calories (#)` column. The observed difference in mean calories between recipes with and without missing ratings was [INSERT OBSERVED VALUE]. After 1000 permutations, the resulting p-value was **0.0**, which is below our significance level of 0.05. We therefore conclude that the missingness of `avg_rating` **does** depend on calories — recipes with missing ratings tend to have significantly higher calorie counts, suggesting they are richer, more complex dishes that fewer users attempt and therefore fewer users rate.
 
